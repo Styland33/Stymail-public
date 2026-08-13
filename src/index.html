@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stymail Pro — Enterprise Edition</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Network indicator -->
+    <div id="offline-indicator" class="offline-banner hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <span>No native network connection detected</span>
+    </div>
+
+    <div class="app-shell">
+        <!-- Sidebar navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-mark">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9 22 2z"/></svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">stymail</span>
+                    <span class="brand-sub">Enterprise</span>
+                </div>
+            </div>
+
+            <nav class="nav" aria-label="Main navigation">
+                <button class="nav-item active" data-target="tab-config" data-title="Engine Configuration" data-subtitle="Fine-tune your sending engine">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                    <span class="nav-label">Engine</span>
+                </button>
+                <button class="nav-item" data-target="tab-compose" data-title="Compose" data-subtitle="Craft your campaign message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    <span class="nav-label">Compose</span>
+                </button>
+                <button class="nav-item" data-target="tab-misc" data-title="Projects" data-subtitle="Save and restore campaign work">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                    <span class="nav-label">Projects</span>
+                </button>
+                <button class="nav-item" data-target="tab-stats" data-title="Campaign Dashboard" data-subtitle="Live sending telemetry">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    <span class="nav-label">Dashboard</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="engine-status">
+                    <span class="status-pulse"></span>
+                    <span class="status-text">Engine Idle</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-titles">
+                    <h2 id="page-title">Engine Configuration</h2>
+                    <p id="page-subtitle">Fine-tune your sending engine</p>
+                </div>
+                <div class="topbar-actions">
+                    <button id="btn-manage-pool" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span>Manage SMTP Pool</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- ══ TAB 1 · ENGINE CONFIG ══ -->
+                <section id="tab-config" class="tab-panel active">
+                    <div class="card-grid">
+                        <!-- Send mode -->
+                        <div class="card">
+                            <div class="card-head">
+                                <div class="card-head-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                                </div>
+                                <div>
+                                    <h3>Sending Mode</h3>
+                                    <p>Select your identity strategy</p>
+                                </div>
+                            </div>
+
+                            <div class="mode-selector">
+                                <label class="mode-card">
+                                    <input type="radio" name="smtp_mode" value="single" checked>
+                                    <span class="mode-card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                                    </span>
+                                    <span class="mode-card-text">
+                                        <strong>Single Identity</strong>
+                                        <small>Use one SMTP profile</small>
+                                    </span>
+                                </label>
+                                <label class="mode-card">
+                                    <input type="radio" name="smtp_mode" value="pool">
+                                    <span class="mode-card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    </span>
+                                    <span class="mode-card-text">
+                                        <strong>SMTP Pool</strong>
+                                        <small>Automatic rotation</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Engine settings -->
+                        <div class="card">
+                            <div class="card-head">
+                                <div class="card-head-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                </div>
+                                <div>
+                                    <h3>Engine Tuning</h3>
+                                    <p>Concurrency, pacing & retries</p>
+                                </div>
+                            </div>
+
+                            <div class="settings-grid">
+                                <div class="field">
+                                    <label for="cfg-workers">Concurrent Workers</label>
+                                    <div class="input-wrap">
+                                        <input type="number" id="cfg-workers" value="1" min="1">
+                                        <span class="input-suffix">threads</span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="cfg-delay">Delay per Email</label>
+                                    <div class="input-wrap">
+                                        <input type="number" id="cfg-delay" value="5" min="0">
+                                        <span class="input-suffix">sec</span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="cfg-rounds">Campaign Rounds</label>
+                                    <div class="input-wrap">
+                                        <input type="number" id="cfg-rounds" value="1" min="1">
+                                        <span class="input-suffix">×</span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="cfg-round-delay">Delay Between Rounds</label>
+                                    <div class="input-wrap">
+                                        <input type="number" id="cfg-round-delay" value="60" min="0">
+                                        <span class="input-suffix">sec</span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="cfg-retries">Max Retries on Fail</label>
+                                    <div class="input-wrap">
+                                        <input type="number" id="cfg-retries" value="0" min="0">
+                                        <span class="input-suffix">×</span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="cfg-retry-delay">Retry Wait Time</label>
+                                    <div class="input-wrap">
+                                        <input type="number" id="cfg-retry-delay" value="10" min="0">
+                                        <span class="input-suffix">sec</span>
+                                    </div>
+                                </div>
+                                <div class="field field-span-2">
+                                    <label>Stealth Pacing</label>
+                                    <div class="toggle-row">
+                                        <label class="toggle">
+                                            <input type="checkbox" id="cfg-random-delay" checked>
+                                            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                                            <span class="toggle-label">Randomize delay between sends</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ══ TAB 2 · COMPOSE ══ -->
+                <section id="tab-compose" class="tab-panel">
+                    <div class="card compose-card">
+                        <div class="card-head">
+                            <div class="card-head-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            </div>
+                            <div>
+                                <h3>Message</h3>
+                                <p>Supports spintax syntax {Option A|Option B}</p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="cmp-subject">Subject</label>
+                            <input type="text" id="cmp-subject" placeholder="Enter subject line…" class="input-lg">
+                            <span class="field-hint">Tip: use spintax to vary phrasing — {Hi|Hello} {there|friend}</span>
+                        </div>
+
+                        <div class="field">
+                            <label for="cmp-body">Email Body</label>
+                            <textarea id="cmp-body" rows="9" placeholder="Start writing your message…"></textarea>
+                        </div>
+
+                        <div class="compose-toolbar">
+                            <div class="toolbar-group">
+                                <button id="btn-attach" class="btn btn-ghost">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                                    <span>Add Attachment</span>
+                                </button>
+                                <span id="attachment-name" class="attachment-chip hidden"></span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="cmp-is-html" checked>
+                                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                                <span class="toggle-label">Send as HTML</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="card-head-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <div>
+                                <h3>Recipients</h3>
+                                <p>One per line — format: email, Name</p>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <textarea id="cmp-recipients" rows="7" placeholder="john@example.com, John Smith&#10;jane@example.com, Jane Doe"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ══ TAB 3 · PROJECTS ══ -->
+                <section id="tab-misc" class="tab-panel">
+                    <div class="projects-grid">
+                        <div class="card project-card">
+                            <div class="project-icon accent-cyan">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            </div>
+                            <h3>Save Project</h3>
+                            <p>Export your full campaign — SMTP pool, message, recipients and engine settings — to a portable file.</p>
+                            <button id="btn-save-proj" class="btn btn-success">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                <span>Save Project File</span>
+                            </button>
+                        </div>
+
+                        <div class="card project-card">
+                            <div class="project-icon accent-violet">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg>
+                            </div>
+                            <h3>Load Project</h3>
+                            <p>Restore a saved project file and have every identity, message and setting ready to go again.</p>
+                            <button id="btn-load-proj" class="btn btn-warning">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                <span>Load Project File</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card info-card">
+                        <h4>What gets saved</h4>
+                        <ul class="info-list">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg>
+                                <span>All SMTP identities in your pool</span>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                <span>Subject, body and recipient list</span>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                                <span>Workers, delays, rounds and retry policies</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ══ TAB 4 · DASHBOARD ══ -->
+                <section id="tab-stats" class="tab-panel">
+                    <div class="stats-grid">
+                        <div class="stat-card stat-success">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span class="stat-label">Sent</span>
+                            <span class="stat-value" id="stat-sent">0</span>
+                        </div>
+                        <div class="stat-card stat-danger">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            </div>
+                            <span class="stat-label">Failed</span>
+                            <span class="stat-value" id="stat-fail">0</span>
+                        </div>
+                        <div class="stat-card stat-info">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <span class="stat-label">Round</span>
+                            <span class="stat-value" id="stat-round">1 / 1</span>
+                        </div>
+                    </div>
+
+                    <div class="card progress-card">
+                        <div class="progress-head">
+                            <span class="progress-title">Campaign Progress</span>
+                            <span id="progress-label" class="progress-value">0%</span>
+                        </div>
+                        <progress id="campaign-progress" value="0" max="100"></progress>
+                    </div>
+
+                    <div class="card console-card">
+                        <div class="console-header">
+                            <span class="console-dots"><i></i><i></i><i></i></span>
+                            <span class="console-title">Campaign Log</span>
+                            <button id="btn-clear-log" class="console-clear">Clear</button>
+                        </div>
+                        <div id="console-log" class="console">
+                            <div class="log-line log-info">[---] [INFO] Console ready. Press START to launch the campaign.</div>
+                        </div>
+                    </div>
+
+                    <div class="control-panel">
+                        <button id="btn-start" class="btn btn-success btn-lg">
+                            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            <span class="btn-label">Start</span>
+                        </button>
+                        <button id="btn-pause" class="btn btn-warning btn-lg">
+                            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                            <span class="btn-label">Pause</span>
+                        </button>
+                        <button id="btn-kill" class="btn btn-danger btn-lg">
+                            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="6" width="12" height="12"/></svg>
+                            <span class="btn-label">Stop</span>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile bottom navigation -->
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <button class="nav-item active" data-target="tab-config" data-title="Engine Configuration" data-subtitle="Fine-tune your sending engine">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            <span class="nav-label">Engine</span>
+        </button>
+        <button class="nav-item" data-target="tab-compose" data-title="Compose" data-subtitle="Craft your campaign message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span class="nav-label">Compose</span>
+        </button>
+        <button class="nav-item" data-target="tab-misc" data-title="Projects" data-subtitle="Save and restore campaign work">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span class="nav-label">Projects</span>
+        </button>
+        <button class="nav-item" data-target="tab-stats" data-title="Campaign Dashboard" data-subtitle="Live sending telemetry">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span class="nav-label">Dashboard</span>
+        </button>
+    </nav>
+
+    <!-- SMTP Pool Modal -->
+    <div id="smtp-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="smtp-modal-title">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="smtp-modal-title">Add SMTP Identity</h2>
+                <button class="modal-close" data-close-modal aria-label="Close dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="smtp-host">Host</label>
+                        <input type="text" id="smtp-host" placeholder="smtp.gmail.com" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="smtp-port">Port</label>
+                        <input type="number" id="smtp-port" placeholder="465" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="smtp-user">Auth Username</label>
+                        <input type="text" id="smtp-user" placeholder="your-username or you@domain.com" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="smtp-pass">Password</label>
+                        <input type="password" id="smtp-pass" placeholder="••••••••" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="smtp-name">Sender Display Name</label>
+                        <input type="text" id="smtp-name" placeholder="Your Name" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="smtp-email">Sender Email</label>
+                        <input type="text" id="smtp-email" placeholder="sender@domain.com" autocomplete="off">
+                        <span class="field-hint">From address </span>
+                    </div>
+                    <div class="field">
+                        <label for="smtp-sec">Security</label>
+                        <select id="smtp-sec">
+                            <option value="SSL">SSL</option>
+                            <option value="TLS">TLS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="btn-smtp-save" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <span class="btn-label">Add to Pool</span>
+                    </button>
+                    <button id="btn-smtp-test" class="btn btn-ghost-accent">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <span class="btn-label">Test Connection</span>
+                    </button>
+                    <button id="btn-smtp-cancel-edit" class="btn btn-ghost hidden">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        <span class="btn-label">Cancel Edit</span>
+                    </button>
+                </div>
+
+                <div class="smtp-list-container">
+                    <div class="list-head">
+                        <h3>Current Pool</h3>
+                        <span id="smtp-count" class="badge">0</span>
+                    </div>
+                    <div id="smtp-list" class="smtp-list">
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <p>No SMTP identities yet</p>
+                            <small>Add your first profile above</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btn-close-modal" class="btn btn-primary btn-block">
+                    <span class="btn-label">Done</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>
