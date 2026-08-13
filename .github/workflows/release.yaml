@@ -3,9 +3,8 @@ name: 'Publish Multi-Platform Release'
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*' # Triggers when you push tags like v1.0.0
 
-# Set top-level permissions for all jobs
 permissions:
   contents: write
 
@@ -16,9 +15,9 @@ jobs:
       matrix:
         include:
           - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin'
+            args: '--target aarch64-apple-darwin' # Apple Silicon (M1/M2/M3)
           - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin'
+            args: '--target x86_64-apple-darwin'  # Intel Macs
           - platform: 'ubuntu-22.04'
             args: ''
           - platform: 'windows-latest'
@@ -56,45 +55,7 @@ jobs:
         with:
           tagName: v__VERSION__
           releaseName: 'Release v__VERSION__'
-          releaseBody: 'See below for desktop and mobile installers.'
+          releaseBody: 'See below for platform-specific installers.'
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
-
-  build-android:
-    needs: publish-tauri-desktop
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Setup Android SDK & NDK
-        uses: android-actions/setup-android@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Install Rust & Android Targets
-        run: |
-          rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-
-      - name: Install Frontend Dependencies
-        run: npm install
-
-      - name: Build Android APK
-        run: npx tauri android build --apk
-
-      - name: Upload APK to Draft Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release.apk
